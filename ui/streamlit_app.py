@@ -40,6 +40,11 @@ st.markdown(
 
 
 # --- renderers -------------------------------------------------------------
+def md_text(text: str) -> str:
+    """Escape $ so Streamlit doesn't render "$216 to $566" as LaTeX math."""
+    return text.replace("$", "\\$")
+
+
 def render_hotels(hotels: list[dict], key: str) -> None:
     hotels = hotels[:6]
     if not hotels:
@@ -68,7 +73,7 @@ def render_hotels(hotels: list[dict], key: str) -> None:
 
 def _render_body(seg: dict, key: str) -> None:
     if seg["type"] == "text":
-        st.markdown(seg["content"])
+        st.markdown(md_text(seg["content"]))
     elif seg["type"] == "hotels":
         render_hotels(seg["data"], key)
 
@@ -158,7 +163,7 @@ with st.sidebar:
 for idx, m in enumerate(messages):
     if m["role"] == "user":
         with st.chat_message("user"):
-            st.markdown(m["content"])
+            st.markdown(md_text(m["content"]))
     else:
         for sidx, seg in enumerate(m.get("segments", [])):
             render_segment(seg, f"{idx}_{sidx}")
@@ -172,6 +177,6 @@ if prompt:
         convo["title"] = prompt
     messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
-        st.markdown(prompt)
+        st.markdown(md_text(prompt))
     segments = run_turn(prompt, thread_id, str(len(messages)))
     messages.append({"role": "assistant", "segments": segments})
