@@ -1,5 +1,7 @@
 # 🏨 Travel Mitra
 
+[![CI](https://github.com/devpparikh/travel_mitra/actions/workflows/ci.yml/badge.svg)](https://github.com/devpparikh/travel_mitra/actions/workflows/ci.yml)
+
 An AI-powered travel assistant for **US hotels**. Chat with it to find hotels by
 location, price, and rating; browse results as cards; pick one and ask what guests
 actually say about it — answered from **real reviews** via hybrid (vector +
@@ -240,3 +242,9 @@ ETL operational knobs (`top_n_cities`, `review_hotels_per_location`, price tiers
 
 - US hotels only, for the cities loaded into the catalog. No booking, availability, or date-specific pricing in v1.
 - Secrets live in `.env` (gitignored). Never commit real keys; rotate anything exposed.
+
+---
+
+## 📄 License
+
+[MIT](LICENSE)
